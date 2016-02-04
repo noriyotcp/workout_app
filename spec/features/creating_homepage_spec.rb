@@ -4,6 +4,6 @@ RSpec.feature "Creating Home Page", type: :feature do
 
     expect(page).to have_link "Athletes Den"
     expect(page).to have_link "Home"
-    expect(page).to have_content "Workout Lounge"
+    expect(page).to have_content "Workout Lounge!"
   end
 end
