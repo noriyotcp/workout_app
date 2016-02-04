@@ -40,3 +40,9 @@ bower.json
 
 # Ignore Byebug command history file.
 .byebug_history
+# Ignore *-1000 dir
+/spring-1000
+
+# Ignore *-1000 dir
+/spring-1000
+
