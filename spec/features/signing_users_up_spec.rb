@@ -1,13 +1,35 @@
 RSpec.feature "SigningUsersUp", type: :feature do
-  scenario "with valid credentials" do
-    visit "/"
-    click_link "Sign up"
+  feature "with valid credentials" do
+    background do
+      visit "/"
+      click_link "Sign up"
 
-    fill_in "Email", with: "john@example.com"
-    fill_in "Password", with: "password"
-    fill_in "Password Confirmation", with: "password"
+      fill_in "Email", with: "john@example.com"
+      fill_in "Password", with: "password"
+      fill_in "Password confirmation", with: "password"
 
-    click_button "Sign up"
-    expect(page).to have_content "Welcome! You have signed up successfully."
+      click_button "Sign up"
+    end
+
+    scenario "Success to sign up" do
+      expect(page).to have_content "Welcome! You have signed up successfully."
+    end
+  end
+
+  feature "with invalid credentials" do
+    background do
+      visit "/"
+      click_link "Sign up"
+
+      fill_in "Email", with: "john@example"
+      fill_in "Password", with: "password"
+      fill_in "Password confirmation", with: "password"
+
+      click_button "Sign up"
+    end
+
+    scenario "Fail to sign up" do
+      expect(page).to have_content "Email is invalid"
+    end
   end
 end
