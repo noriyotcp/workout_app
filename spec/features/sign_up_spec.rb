@@ -1,4 +1,4 @@
-RSpec.feature "SigningUsersUp", type: :feature do
+RSpec.feature "SignUp", type: :feature do
   feature "with valid credentials" do
     background do
       visit "/"
