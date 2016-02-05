@@ -13,6 +13,7 @@ RSpec.feature "SignIn", type: :feature do
     end
     scenario "Success to sign in" do
       expect(page).to have_content I18n.t 'devise.sessions.signed_in'
+      expect(page).to have_content "Signed in as #{user.email}"
     end
   end
 
