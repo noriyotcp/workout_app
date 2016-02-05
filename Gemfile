@@ -34,6 +34,10 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'capybara'
   gem 'shoulda-matchers', '~> 3.1'
+  gem "paranoia", "~> 2.0"
+  gem 'annotate'
+  gem 'devise'
+  gem 'factory_girl_rails'
 end
 
 group :development do
