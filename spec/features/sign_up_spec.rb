@@ -12,7 +12,7 @@ RSpec.feature "SignUp", type: :feature do
     end
 
     scenario "Success to sign up" do
-      expect(page).to have_content "Welcome! You have signed up successfully."
+      expect(page).to have_content I18n.t 'devise.registrations.signed_up'
     end
   end
 
