@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20160208064608) do
     t.integer  "duration_in_min"
     t.text     "workout"
     t.date     "workout_date"
-    t.integer  "user_id"
+    t.integer  "user_id",         null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
