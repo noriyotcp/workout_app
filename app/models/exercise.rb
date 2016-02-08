@@ -6,7 +6,7 @@
 #  duration_in_min :integer
 #  workout         :text
 #  workout_date    :date
-#  user_id         :integer
+#  user_id         :integer          not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
