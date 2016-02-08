@@ -30,6 +30,12 @@ FactoryGirl.define do
     sequence :email do |n|
       "user#{n}@example.com"
     end
+    sequence :first_name do |n|
+      "First#{n}"
+    end
+    sequence :last_name do |n|
+      "Last#{n}"
+    end
     password 'password'
   end
 end
