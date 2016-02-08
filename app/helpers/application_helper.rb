@@ -5,7 +5,7 @@ module ApplicationHelper
     error: 'alert-danger',
     alert: 'alert-danger',
     warning: 'alert-warning',
-    notice: 'alert-warning'
+    notice: 'alert-notice'
   }
 
   def flash_class_for(flash_type)
