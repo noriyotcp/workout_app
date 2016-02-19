@@ -14,9 +14,9 @@
 ActiveRecord::Schema.define(version: 20160208073605) do
 
   create_table "exercises", force: :cascade do |t|
-    t.integer  "duration_in_min"
-    t.text     "workout"
-    t.date     "workout_date"
+    t.integer  "duration_in_min", null: false
+    t.text     "workout",         null: false
+    t.date     "workout_date",    null: false
     t.integer  "user_id",         null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false

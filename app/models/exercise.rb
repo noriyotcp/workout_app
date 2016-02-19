@@ -3,9 +3,9 @@
 # Table name: exercises
 #
 #  id              :integer          not null, primary key
-#  duration_in_min :integer
-#  workout         :text
-#  workout_date    :date
+#  duration_in_min :integer          not null
+#  workout         :text             not null
+#  workout_date    :date             not null
 #  user_id         :integer          not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
