@@ -1,5 +1,12 @@
 class ExercisesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_exercise, only: [:show]
+
   def index
+    @exercises = current_user.exercises.all
+  end
+
+  def show
   end
 
   def new
@@ -22,5 +29,9 @@ class ExercisesController < ApplicationController
 
     def exercise_params
       params.require(:exercise).permit(:duration_in_min, :workout, :workout_date, :user)
+    end
+
+    def set_exercise
+      @exercise = current_user.exercises.find(params[:id])
     end
 end

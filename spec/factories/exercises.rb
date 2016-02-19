@@ -20,6 +20,6 @@ FactoryGirl.define do
     duration_in_min 1
     workout "MyText"
     workout_date "2016-02-08"
-    user User.first
+    association :user, strategy: :build
   end
 end
