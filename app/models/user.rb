@@ -16,6 +16,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  deleted_at             :datetime
+#  first_name             :string           default(""), not null
+#  last_name              :string           default(""), not null
 #
 # Indexes
 #
@@ -29,4 +31,13 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   acts_as_paranoid
+
+  has_many :exercises, dependent: :destroy
+
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
