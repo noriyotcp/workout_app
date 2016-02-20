@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+User.delete_all
+Exercise.delete_all
+
+puts "Generating seed data..."
+FactoryGirl.create_list(:user, 2)
+FactoryGirl.create_list(:exercise, 4)
+puts "Done."
