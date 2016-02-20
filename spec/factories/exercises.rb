@@ -17,9 +17,13 @@
 
 FactoryGirl.define do
   factory :exercise do
-    duration_in_min 1
-    workout "MyText"
-    workout_date "2016-02-08"
+    sequence :duration_in_min do |n|
+      (n + 1) * 10
+    end
+    sequence :workout do |n|
+      "Workout#{n}"
+    end
+    workout_date Time.now
     association :user, strategy: :build
   end
 end
