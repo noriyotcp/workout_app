@@ -1,23 +1,32 @@
 RSpec.feature "ListingExercises", type: :feature do
-  given(:user) { create(:user) }
-  given(:exercise1) { create(:exercise, user_id: user.id) }
-  given(:exercise2) { create(:exercise, user_id: user.id) }
+  given!(:user) { create(:user) }
+  given!(:exercise1) { create(:exercise, user_id: user.id) }
+  given!(:exercise2) { create(:exercise, user_id: user.id) }
+  given!(:exercise3) { create(:exercise, user_id: user.id, workout_date: Time.now.days_ago(7)) }
 
   background {
     login_as(user)
-    exercise1
-    exercise2
-  }
-
-  scenario "shows user's workouts for last 7days" do
     visit "/"
     click_link "My Lounge"
+  }
 
-    expect(page).to have_content exercise1.duration_in_min
-    expect(page).to have_content exercise1.workout
-    expect(page).to have_content exercise1.workout_date
-    expect(page).to have_content exercise2.duration_in_min
-    expect(page).to have_content exercise2.workout
-    expect(page).to have_content exercise2.workout_date
+
+  scenario "shows user's workouts for last 7days" do
+    within "tbody" do
+      expect(page).to have_content exercise1.duration_in_min
+      expect(page).to have_content exercise1.workout
+      expect(page).to have_content exercise1.workout_date
+      expect(page).to have_content exercise2.duration_in_min
+      expect(page).to have_content exercise2.workout
+      expect(page).to have_content exercise2.workout_date
+    end
+  end
+
+  scenario "does not show user's workouts before 7 days ago" do
+    within "tbody" do
+      expect(page).not_to have_content exercise3.duration_in_min
+      expect(page).not_to have_content exercise3.workout
+      expect(page).not_to have_content exercise3.workout_date
+    end
   end
 end
