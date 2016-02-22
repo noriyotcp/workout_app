@@ -1,6 +1,6 @@
 class ExercisesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_exercise, only: [:show]
+  before_action :set_exercise, only: [:show, :edit, :update]
 
   def index
     @exercises = current_user.exercises.all
@@ -21,6 +21,19 @@ class ExercisesController < ApplicationController
       redirect_to [current_user, @exercise]
     else
       flash[:alert] = "Exercise has not been created"
+      render :new
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @exercise.update(exercise_params)
+      flash[:success] = "Exercise has been updated"
+      redirect_to [current_user, @exercise]
+    else
+      flash[:alert] = "Exercise has not been updated"
       render :new
     end
   end
