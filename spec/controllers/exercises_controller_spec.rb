@@ -3,9 +3,9 @@
 # Table name: exercises
 #
 #  id              :integer          not null, primary key
-#  duration_in_min :integer
-#  workout         :text
-#  workout_date    :date
+#  duration_in_min :integer          not null
+#  workout         :text             not null
+#  workout_date    :date             not null
 #  user_id         :integer          not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -62,41 +62,99 @@ RSpec.describe ExercisesController, type: :controller do
 
   end
 
-  # describe "POST create" do
-  #   describe "with valid params" do
-  #     it "creates a new Todo" do
-  #       expect {
-  #         post :create, {:todo => valid_attributes}, valid_session
-  #       }.to change(Todo, :count).by(1)
-  #     end
+  describe "GET new" do
+    before { get :new, { user_id: user } }
+    it "assigns a new exercise as @exercise" do
+      expect(assigns(:exercise)).to be_a_new(Exercise)
+    end
+  end
 
-  #     it "assigns a newly created todo as @todo" do
-  #       post :create, {:todo => valid_attributes}, valid_session
-  #       assigns(:todo).should be_a(Todo)
-  #       assigns(:todo).should be_persisted
-  #     end
+  describe "GET edit" do
+    before { exercise }
+    it "assigns the requested exercise as @exercise" do
+      get :edit, { user_id: user, id: exercise }
+      expect(assigns(:exercise)).to eq(exercise)
+    end
+  end
 
-  #     it "redirects to the created todo" do
-  #       post :create, {:todo => valid_attributes}, valid_session
-  #       response.should redirect_to(Todo.last)
-  #     end
-  #   end
 
-  #   describe "with invalid params" do
-  #     it "assigns a newly created but unsaved todo as @todo" do
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Todo.any_instance.stub(:save).and_return(false)
-  #       post :create, {:todo => { "title" => "invalid value" }}, valid_session
-  #       assigns(:todo).should be_a_new(Todo)
-  #     end
+  describe "POST create" do
+    describe "with valid params" do
+      it "creates a new Exercise" do
+        expect {
+          post :create, { user_id: user, exercise: attributes_for(:exercise) }
+        }.to change(Exercise, :count).by(1)
+      end
 
-  #     it "re-renders the 'new' template" do
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Todo.any_instance.stub(:save).and_return(false)
-  #       post :create, {:todo => { "title" => "invalid value" }}, valid_session
-  #       response.should render_template("new")
-  #     end
-  #   end
-  # end
+      it "assigns a newly created exercise as @exercise" do
+        post :create, { user_id: user, exercise: attributes_for(:exercise) }
+        expect(assigns(:exercise)).to be_a(Exercise)
+        expect(assigns(:exercise)).to be_persisted
+      end
 
+      it "redirects to the created exercise" do
+        post :create, { user_id: user, exercise: attributes_for(:exercise) }
+        expect(response).to redirect_to [user, Exercise.last]
+      end
+    end
+
+    describe "with invalid params" do
+      it "assigns a newly created but unsaved exercise as @exercise" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        post :create, { user_id: user, exercise: attributes_for(:exercise, duration_in_min: nil) }
+        expect(assigns(:exercise)).to be_a_new(Exercise)
+        expect(assigns(:exercise)).not_to be_persisted
+      end
+
+      it "re-renders the 'new' template" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        post :create, { user_id: user, exercise: attributes_for(:exercise, duration_in_min: nil) }
+        expect(response).to render_template :new
+      end
+    end
+  end
+
+  describe "PATCH update" do
+    before { exercise }
+
+    describe "with valid params" do
+      let(:new_duration) { exercise.duration_in_min + 10 }
+      it "updates the requested exercise" do
+        patch :update, { id: exercise, user_id: user, exercise: attributes_for(:exercise, duration_in_min: new_duration) }
+        exercise.reload
+        expect(exercise.duration_in_min).to eq new_duration
+      end
+
+      it "assigns the exercise as @exercise" do
+        patch :update, { id: exercise, user_id: user, exercise: attributes_for(:exercise, duration_in_min: new_duration) }
+        expect(assigns(:exercise)).to be_a(Exercise)
+        expect(assigns(:exercise)).to eq exercise
+      end
+
+      it "redirects to the updated exercise" do
+        patch :update, { id: exercise, user_id: user, exercise: attributes_for(:exercise, duration_in_min: new_duration) }
+        expect(response).to redirect_to [user, exercise]
+      end
+    end
+
+    describe "with invalid params" do
+      let!(:old_duration) { exercise.duration_in_min }
+
+      it "does not update the requested exercise" do
+        expect {
+          patch :update, { id: exercise, user_id: user,
+                          exercise: attributes_for(:exercise, duration_in_min: nil) }
+        }.not_to change { exercise.duration_in_min }.from old_duration
+        exercise.reload
+        expect(exercise.duration_in_min).to eq old_duration
+      end
+
+      it "re-renders the 'edit' template" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        patch :update, { id: exercise, user_id: user,
+                          exercise: attributes_for(:exercise, duration_in_min: nil) }
+        expect(response).to render_template :edit
+      end
+    end
+  end
 end
