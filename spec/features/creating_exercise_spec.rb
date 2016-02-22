@@ -11,7 +11,7 @@ RSpec.feature "CreatingExercise", type: :feature do
 
     fill_in "Duration", with: 70
     fill_in "Workout Details", with: "Weight lifting"
-    fill_in "Activity date", with: "2015-08-07"
+    fill_in "exercise[workout_date]", with: Date.today
     click_button "Create Exercise"
     expect(page).to have_content "Exercise has been created"
 
@@ -28,7 +28,7 @@ RSpec.feature "CreatingExercise", type: :feature do
 
     fill_in "Duration", with: nil
     fill_in "Workout Details", with: ""
-    fill_in "Activity date", with: ""
+    fill_in "exercise[workout_date]", with: ""
     click_button "Create Exercise"
     expect(page).to have_content "Exercise has not been created"
     expect(page).to have_content "Duration in min can't be blank"

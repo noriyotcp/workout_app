@@ -1,6 +1,6 @@
 class ExercisesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_exercise, only: [:show]
+  before_action :set_exercise, only: [:show, :edit, :update]
 
   def index
     @exercises = current_user.exercises.all
@@ -25,6 +25,19 @@ class ExercisesController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @exercise.update(exercise_params)
+      flash[:success] = "Exercise has been updated"
+      redirect_to [current_user, @exercise]
+    else
+      flash[:alert] = "Exercise has not been updated"
+      render :edit
+    end
+  end
+
   private
 
     def exercise_params
@@ -32,6 +45,6 @@ class ExercisesController < ApplicationController
     end
 
     def set_exercise
-      @exercise = current_user.exercises.find(params[:id])
+      @exercise = current_user.exercises.unscoped.find(params[:id])
     end
 end
