@@ -45,6 +45,6 @@ class ExercisesController < ApplicationController
     end
 
     def set_exercise
-      @exercise = current_user.exercises.find(params[:id])
+      @exercise = current_user.exercises.unscoped.find(params[:id])
     end
 end
