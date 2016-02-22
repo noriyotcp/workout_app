@@ -34,7 +34,7 @@ class ExercisesController < ApplicationController
       redirect_to [current_user, @exercise]
     else
       flash[:alert] = "Exercise has not been updated"
-      render :new
+      render :edit
     end
   end
 
