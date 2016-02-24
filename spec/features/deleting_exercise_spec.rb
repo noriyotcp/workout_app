@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.feature "DeletingExercise", type: :feature do
   given!(:exercise) { create(:exercise) }
   given!(:user) { exercise.user }
