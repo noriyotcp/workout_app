@@ -2,3 +2,21 @@
   <h1>Workout Lounge!</h1>
   <p>Share your workouts with your friends and family</p>
 </div>
+
+<div class="row">
+  <div class="col-md-10">
+    <h2>List of Members</h2>
+  </div>
+</div>
+
+<div class="row">
+  <% if @members.present? %>
+    <% @members.each do |member| %>
+      <div class="col-md-10 well member">
+        <%= member.full_name %>
+      </div>
+    <% end %>
+  <% else %>
+    There's no members
+  <% end %>
+</div>
