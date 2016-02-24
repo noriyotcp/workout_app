@@ -157,4 +157,19 @@ RSpec.describe ExercisesController, type: :controller do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    before { exercise }
+
+    it "destroys the requested todo" do
+      expect {
+        delete :destroy, { user_id: user, id: exercise }
+      }.to change(Exercise, :count).by(-1)
+    end
+
+    it "redirects to the exercises list" do
+      delete :destroy, { user_id: user, id: exercise }
+      expect(response).to redirect_to(user_exercises_url)
+    end
+  end
 end
