@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-md-10">
+    <h2>Result for searching Members</h2>
+  </div>
+</div>
+
+<div class="row">
+  <% if @members.present? %>
+    <% @members.each do |member| %>
+      <div class="col-md-10 well member">
+        <%= member.full_name %>
+      </div>
+    <% end %>
+  <%= will_paginate @members, renderer: BootstrapPagination::Rails, class: 'pull-left paginate' %>
+  <% else %>
+    There's no results
+  <% end %>
+</div>
