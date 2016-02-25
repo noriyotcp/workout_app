@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe FriendshipsController, type: :controller do
   let(:john) { create(:user) }
   let(:peter) { create(:user) }
@@ -19,13 +17,13 @@ RSpec.describe FriendshipsController, type: :controller do
       expect(response).to have_http_status(302)
     end
 
-    it "creates a new Exercise" do
+    it "creates a new friend" do
         expect {
           post :create, { friend_id: peter }
         }.to change(john.friendships, :count).by(1)
       end
 
-      it "redirects to the created exercise" do
+      it "redirects to the root" do
         post :create, { friend_id: peter }
         expect(response).to redirect_to root_path
       end
