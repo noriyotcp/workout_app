@@ -1,10 +1,13 @@
 RSpec.describe FriendshipsController, type: :controller do
   let(:john) { create(:user) }
   let(:peter) { create(:user) }
+  let(:friendships) { Friendship.create(user: john, friend: peter) }
 
   describe "GET #show" do
+    before { sign_in(john) }
+
     it "returns http success" do
-      get :show
+      get :show, { id: friendships }
       expect(response).to have_http_status(:success)
     end
   end
