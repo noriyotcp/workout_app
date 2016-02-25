@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :friendships, only: [:show, :create, :destroy]
+
   # Example resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales

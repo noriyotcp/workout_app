@@ -60,4 +60,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  def follows_or_same?(new_friend)
+    friendships.map(&:friend).include?(new_friend) || (self == new_friend)
+  end
 end
