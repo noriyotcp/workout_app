@@ -10,18 +10,20 @@
   </div>
 </div>
 
-<div class="row">
-  <% if @members.present? %>
-    <% @members.each do |member| %>
-      <div class="col-md-10 well member">
-        <%= member.full_name %>
-        <% if current_user %>
-          <%= link_to "Follow", friendships_path(friend_id: member.id), method: :post,
-                        class: "btn btn-primary pull-right" unless current_user.follows_or_same?(member) %>
-        <% end %>
-      </div>
+<div class="container">
+  <div class="row">
+    <% if @members.present? %>
+      <% @members.each do |member| %>
+        <div class="col-md-10 well member">
+          <%= member.full_name %>
+          <% if current_user %>
+            <%= link_to "Follow", friendships_path(friend_id: member.id), method: :post,
+                          class: "btn btn-primary pull-right" unless current_user.follows_or_same?(member) %>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      There's no members
     <% end %>
-  <% else %>
-    There's no members
-  <% end %>
+  </div>
 </div>
