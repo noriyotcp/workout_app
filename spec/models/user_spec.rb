@@ -1,6 +1,8 @@
 RSpec.describe User, type: :model do
   describe "ASSOCIATION" do
     it { is_expected.to have_many :exercises }
+    it { is_expected.to have_many :friendships }
+    it { is_expected.to have_many(:friends).through(:friendships).class_name('User') }
   end
 
   describe "VALIDATION" do
