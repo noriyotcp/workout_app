@@ -21,16 +21,11 @@ Rails.application.routes.draw do
   #   resources :products
 
   # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+  resource :dashboard, only: [:index] do
+    collection do
+      post :search, to: 'dashboard#search'
+    end
+  end
 
   # Example resource route with sub-resources:
   #   resources :products do
