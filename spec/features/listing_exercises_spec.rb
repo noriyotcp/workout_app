@@ -1,5 +1,7 @@
 RSpec.feature "ListingExercises", type: :feature do
   given!(:user) { create(:user) }
+  given!(:friend) { create(:user) }
+  given!(:friendship) { Friendship.create(user: user, friend: friend) }
   given!(:exercise1) { create(:exercise, user_id: user.id) }
   given!(:exercise2) { create(:exercise, user_id: user.id) }
   given!(:exercise3) { create(:exercise, user_id: user.id, workout_date: Time.now.days_ago(7)) }
@@ -28,5 +30,11 @@ RSpec.feature "ListingExercises", type: :feature do
       expect(page).not_to have_content exercise3.workout
       expect(page).not_to have_content exercise3.workout_date
     end
+  end
+
+  scenario "show a list of users friends" do
+    expect(page).to have_content "My Friends"
+    expect(page).to have_link friend.full_name
+    expect(page).to have_link "Unfollow"
   end
 end
