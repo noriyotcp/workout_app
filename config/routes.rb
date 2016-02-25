@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   # Example resource route with options:
   resource :dashboard, only: [:index] do
     collection do
-      post :search, to: 'dashboard#search'
+      get :search, to: 'dashboard#search'
     end
   end
 
