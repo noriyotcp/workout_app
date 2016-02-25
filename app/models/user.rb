@@ -33,6 +33,8 @@ class User < ActiveRecord::Base
   acts_as_paranoid
 
   has_many :exercises, dependent: :destroy
+  has_many :friendships
+  has_many :friends, through: :friendships, class_name: 'User'
 
   validates :first_name, presence: true
   validates :last_name, presence: true
