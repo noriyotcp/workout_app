@@ -9,6 +9,7 @@ User.delete_all
 Exercise.delete_all
 
 puts "Generating seed data..."
-FactoryGirl.create_list(:user, 2)
-FactoryGirl.create_list(:exercise, 4)
+# User for login
+FactoryGirl.create(:user, { first_name: 'For', last_name: 'Login', email: 'login@example.com', password: 'password' })
+FactoryGirl.create_list(:exercise, 100) # Also create the associated users
 puts "Done."
